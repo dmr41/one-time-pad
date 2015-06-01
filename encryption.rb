@@ -11,7 +11,7 @@ class Encryption
 	end
 
 ## phrase_content takes user input and tests if it is a string and
-## if it only contains a string with A-Z input
+## if it only contains a string with only A-Z input
 	def phrase_content(phrase_to_encode)
 		if (phrase_to_encode.is_a?(String) && phrase_to_encode != "" )
 			phrase_to_encode.gsub!(/\s+/, "")
@@ -24,7 +24,7 @@ class Encryption
 			@starting_phrase ||= ""
 	end
 
-## Generate random phrase from user phrase input
+## Generates one-time pad!
 	def randomize_phrase
 		if(@starting_phrase.length)
 			for letter in  1..@starting_phrase.length
@@ -37,6 +37,7 @@ class Encryption
 		@one_time_phrase
 	end
 
+## Encrypts starting message with one time pad value
 	def encrypt_phrase
 		unencoded_array = @starting_phrase.split('').map(&:ord)
 		one_time_array = @one_time_phrase.split('').map(&:ord)
@@ -47,6 +48,7 @@ class Encryption
 			encoding_value = starting_value_adjusted + one_time_value_adjusted - 1
 			@encrypted_message += ((encoding_value % 26) + 65).chr
 		end
+		##These output statements will be removed  - For testing only!
 		puts "Starting phrase: #{@starting_phrase}"
 		puts "One time:        #{@one_time_phrase}"
 		puts "encrypted:       #{@encrypted_message}"
