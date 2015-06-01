@@ -13,13 +13,11 @@ class Encryption
 			phrase_to_encode.gsub!(/\s+/, "")
 			if(phrase_to_encode[/[a-zA-Z]+/] == phrase_to_encode)
 				@phrase = phrase_to_encode
-			else
-				@phrase = ""
 			end
 		else
 			puts "Your code is not a string between A-Z"
-			@phrase = ""
 		end
+			@phrase ||= ""
 	end
 
 end
