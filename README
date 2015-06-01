@@ -1,4 +1,9 @@
 
+This program is for encrypting and decrypting messages using the one time pad
+strategy.
+
+
+Scratch for key methods
 0. Everything wraps to 1 after 26 and to 26 after 1.
 1. A = 1 .. Z = 26
 2. Encryption = Starting text + One-time-Value - 1

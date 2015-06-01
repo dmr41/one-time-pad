@@ -5,9 +5,9 @@ require './encryption'
 describe "encryption initialization" do
 
 	it "sets the user input phrase to input phrase variable" do
-		test_phrase = "I am a words"
+		test_phrase = "I am a word"
 		input_phrase = Encryption.new(test_phrase)
-		expect(input_phrase.phrase).to eq("I am a words")
+		expect(input_phrase.phrase).to eq("Iamaword")
 	end
 
 	it "sets phrase to and empty string if no phrase give" do
@@ -20,9 +20,9 @@ end
 describe "phrase content analysis" do
 
 	it "tests if phrase is a string" do
-		test_phrase = "I am a words"
+		test_phrase = "I am a word"
 		input_phrase = Encryption.new(test_phrase)
-		expect(input_phrase.phrase).to eq("I am a words")
+		expect(input_phrase.phrase).to eq("Iamaword")
 	end
 
 	it "sets phrase to empty string if it is an Array or Number" do
@@ -39,7 +39,6 @@ describe "phrase content analysis" do
 		test_phrase = "I am words ! am N0t word5"
 		input_phrase = Encryption.new(test_phrase)
 		expect(input_phrase.phrase).to eq("")
-
 	end
 
 end
