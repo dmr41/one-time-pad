@@ -1,0 +1,15 @@
+
+0. Everything wraps to 1 after 26 and to 26 after 1.
+1. A = 1 .. Z = 26
+2. Encryption = Starting text + One-time-Value - 1
+3. Decryption = Encryption - One-time-Value + 1
+
+
+
+Encryption eval equation  = (added_values % 26)
+Decryption eval equation  = (Encryption - OTP - 1)  if positive
+													= else (Encryption - OTP - 1) + 26)
+
+ABC XYZ 1 - 24 =
+
+X   B   24 + 2 + 1  =
