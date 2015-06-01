@@ -15,6 +15,6 @@ Encryption eval equation  = (added_values % 26)
 Decryption eval equation  = (Encryption - OTP - 1)  if positive
 													= else (Encryption - OTP - 1) + 26)
 
-ABC XYZ 1 - 24 =
+ABC XYZ (65-90)1 - 24 =
 
 X   B   24 + 2 + 1  =
