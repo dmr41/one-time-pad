@@ -4,9 +4,9 @@
 * Written in Ruby-2.2.0
 * Tests were written using rspec 3.2.3
 * To run tests
-* Download repository
-* Install rspec if not installed
-* $ rspec
+  * Download repository
+  * Install rspec if not installed
+  * $ rspec
 
 
 #### Usage
