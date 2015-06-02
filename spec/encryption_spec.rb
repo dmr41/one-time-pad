@@ -91,7 +91,7 @@ end
 describe "decryption" do
 
 	it "converts encryption to decyrpted message with one-time pad" do
-		input_message = "queen c seven to queen c six"
+		input_message = "decryptionworked"
 		input_phrase = Encryption.new(input_message)
 		input_phrase.randomize_phrase
 		input_phrase.encrypt_phrase

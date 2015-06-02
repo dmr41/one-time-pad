@@ -59,8 +59,8 @@ class Encryption
 		one_time_array     = @one_time_phrase.split('').map{|v| v.ord - 65}
 		@starting_phrase   = ""
 		encrypted_array.each_with_index do |encrypted_value, index|
-			decoding_value = encrypted_value - one_time_array[index] + 1
-			if(decoding_value > 0)
+			decoding_value = encrypted_value - one_time_array[index] +1
+			if(decoding_value >= 0)
 				@starting_phrase += (decoding_value + 65 ).chr
 			else
 				@starting_phrase += ((decoding_value+26) + 65 ).chr
