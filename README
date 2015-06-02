@@ -21,8 +21,8 @@ Encryption = Starting text + One_time_pad - 1
 ** Still to build **
 
 Decryption = Encryption - One_time_pad + 1
-Decryption eval equation  = (Encryption - OTP - 1)  if positive
-													= else (Encryption - OTP - 1) + 26)
+Decryption eval equation  = (Encryption - OTP + 1)  if positive
+													= else (Encryption - OTP + 1) + 26)
 
 ---------------------------------------------------
 Right now functionality causes text to ignore spacing completely.

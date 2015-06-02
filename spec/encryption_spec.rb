@@ -79,4 +79,40 @@ describe "encryption of phrase with one-time-pad" do
 		expect(input_phrase.encrypted_message.length).to eq(test_phrase.length)
 	end
 
+	it "handles empty input" do
+		input_phrase = Encryption.new()
+		input_phrase.randomize_phrase
+		input_phrase.encrypt_phrase
+		expect(input_phrase.encrypted_message).to eq("")
+	end
+
+end
+
+describe "decryption" do
+
+	it "converts encryption to decyrpted message with one-time pad" do
+		input_message = "queen c seven to queen c six"
+		input_phrase = Encryption.new(input_message)
+		input_phrase.randomize_phrase
+		input_phrase.encrypt_phrase
+		starting_message  = input_phrase.starting_phrase
+		one_time_pad      = input_phrase.one_time_phrase
+		encrypted_message = input_phrase.encrypted_message
+		decrypt_test = Encryption.new()
+		decrypt_test.decrypt_phrase(encrypted_message, one_time_pad)
+		expect(decrypt_test.starting_phrase).to eq(starting_message)
+	end
+
+	it "empty string returns empty dycryption" do
+		input_phrase = Encryption.new()
+		input_phrase.randomize_phrase
+		input_phrase.encrypt_phrase
+		starting_message  = input_phrase.starting_phrase
+		one_time_pad      = input_phrase.one_time_phrase
+		encrypted_message = input_phrase.encrypted_message
+		decrypt_test = Encryption.new()
+		decrypt_test.decrypt_phrase(encrypted_message, one_time_pad)
+		expect(decrypt_test.starting_phrase).to eq(starting_message)
+	end
+
 end

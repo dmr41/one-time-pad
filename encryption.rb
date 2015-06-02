@@ -39,13 +39,10 @@ class Encryption
 
 ## Encrypts starting message with one time pad value
 	def encrypt_phrase
-		unencoded_array = @starting_phrase.split('').map(&:ord)
-		one_time_array = @one_time_phrase.split('').map(&:ord)
-		encrypted_array = []
+		unencoded_array = @starting_phrase.split('').map{|v| v.ord - 65}
+		one_time_array  = @one_time_phrase.split('').map{|v| v.ord - 65}
 		unencoded_array.each_with_index do |starting_value, index|
-			one_time_value_adjusted = one_time_array[index] - 65
-			starting_value_adjusted = starting_value - 65
-			encoding_value = starting_value_adjusted + one_time_value_adjusted - 1
+			encoding_value = starting_value + one_time_array[index] - 1
 			@encrypted_message += ((encoding_value % 26) + 65).chr
 		end
 		##These output statements will be removed  - For testing only!
@@ -53,4 +50,27 @@ class Encryption
 		puts "One time:        #{@one_time_phrase}"
 		puts "encrypted:       #{@encrypted_message}"
 	end
+
+	## Decrypts starting message with one time pad value and encrypted message
+	def decrypt_phrase(encrypted_message, one_time_pad)
+		@encrypted_message = encrypted_message
+		@one_time_phrase   = one_time_pad
+		encrypted_array    = @encrypted_message.split('').map{|v| v.ord - 65}
+		one_time_array     = @one_time_phrase.split('').map{|v| v.ord - 65}
+		@starting_phrase   = ""
+		encrypted_array.each_with_index do |encrypted_value, index|
+			decoding_value = encrypted_value - one_time_array[index] + 1
+			if(decoding_value > 0)
+				@starting_phrase += (decoding_value + 65 ).chr
+			else
+				@starting_phrase += ((decoding_value+26) + 65 ).chr
+			end
+		end
+		##These output statements will be removed  - For testing only!
+		puts "Starting phrase: #{@starting_phrase}"
+		puts "One time:        #{@one_time_phrase}"
+		puts "Encrypted:       #{@encrypted_message}"
+
+	end
+
 end
