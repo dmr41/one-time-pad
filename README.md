@@ -13,7 +13,8 @@
 * This program only accepts string values between A-Z.
 * It can handle whitespace and case differences.
 * It does not work with punctuation or stringified numbers, by design.
-* Any input values that do not fall in the designed parameters return as an empty string.
+* Any input values that do not fall within these parameters is returned as an empty string.
+* Code Snippets - can be called by requiring the encryption.rb file into your project.
 
   Example code to encrypt a string
   ``` ruby
