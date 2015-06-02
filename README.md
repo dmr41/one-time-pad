@@ -15,8 +15,8 @@
 * It does not work with punctuation or stringified numbers, by design.
 * Any input values that do not fall in the designed parameters return as an empty string.
 
-  1. Example code to encrypt a string
-    ``` ruby
+  Example code to encrypt a string
+  ``` ruby
     text_to_encrypt = "Encrypt me please"
     encryption_instance = Encryption.new(text_to_encrypt)
     encryption_instance.randomize_phrase
@@ -24,12 +24,12 @@
 
     one_time_pad = encryption_instance.one_time_phrase
     encrypted_message = encryption_instance.encrypted_message
-		```
+    ```
 
-  2. Example code to decrypt a string
-    ``` ruby
-		encrypted_message = "LPWSFUKPVSFSOMZA"
-		one_time_pad = "JMVCIGSIIGKFYDWY"
+    Example code to decrypt a string
+    ```ruby
+    encrypted_message = "LPWSFUKPVSFSOMZA"
+    one_time_pad = "JMVCIGSIIGKFYDWY"
     encryption_instance = Encryption.new()
     encryption_instance.decrypt_phrase(encrypted_message, one_time_pad)
     decrypted_message = encryption_instance.starting_phrase
