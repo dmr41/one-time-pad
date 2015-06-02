@@ -1,12 +1,16 @@
 
 class Encryption
-	attr_accessor :starting_phrase, :one_time_phrase, :encrypted_message
+	attr_accessor :starting_phrase, :one_time_phrase,
+								:encrypted_message, :starting_array,
+								:one_time_array
 
 ## Encryption class initializes phrase instance variable provided by user
 ## Default state is an empty string
 	def initialize (phrase_to_encode="")
 		@starting_phrase = phrase_content(phrase_to_encode)
+		@starting_array = []
 		@one_time_phrase = ""
+		@one_time_array = []
 		@encrypted_message = ""
 	end
 
@@ -24,6 +28,7 @@ class Encryption
 			@starting_phrase ||= ""
 	end
 
+
 ## Generates one-time pad!
 	def randomize_phrase
 		if(@starting_phrase.length)
@@ -36,6 +41,45 @@ class Encryption
 		end
 		@one_time_phrase
 	end
+
+
+	def phrase_content_array(phrase_to_encode)
+		if (phrase_to_encode.is_a?(String) && phrase_to_encode != "" )
+			valid_content = phrase_to_encode.gsub(/\s+/, "")
+			if(valid_content[/[a-zA-Z]+/] == valid_content)
+				@starting_array = phrase_to_encode.upcase.split()
+				@starting_phrase = phrase_to_encode
+			end
+		else
+			@starting_phrase = ""
+			puts "Your code is not a string between A-Z"
+		end
+	end
+
+	def randomize_phrase_array
+		@starting_array.each do |word|
+			random_word = ""
+			for letter in  1..word.length
+				letter_roulet = (65 + rand(25)).chr
+				random_word += letter_roulet
+			end
+			@one_time_array << random_word
+		end
+		@one_time_phrase = @one_time_array.join(" ")
+	end
+
+	# def encrypt_phrase_array
+	# 	unencoded_array = @starting_phrase.split('').map{|v| v.ord - 65}
+	# 	one_time_array  = @one_time_phrase.split('').map{|v| v.ord - 65}
+	# 	unencoded_array.each_with_index do |starting_value, index|
+	# 		encoding_value = starting_value + one_time_array[index] - 1
+	# 		@encrypted_message += ((encoding_value % 26) + 65).chr
+	# 	end
+	# 	##These output statements will be removed  - For testing only!
+	# 	puts "Starting phrase: #{@starting_phrase}"
+	# 	puts "One time:        #{@one_time_phrase}"
+	# 	puts "encrypted:       #{@encrypted_message}"
+	# end
 
 ## Encrypts starting message with one time pad value
 	def encrypt_phrase
@@ -74,3 +118,7 @@ class Encryption
 	end
 
 end
+
+jimmy = Encryption.new
+jimmy.phrase_content_array("I am me I am")
+jimmy.randomize_phrase_array
