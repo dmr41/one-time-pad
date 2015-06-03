@@ -19,8 +19,6 @@ class Encryption
 			if(phrase_to_encode[/[a-zA-Z]+/] == phrase_to_encode)
 				@starting_phrase = phrase_to_encode.upcase
 			end
-		else
-			puts "Your code is not a string between A-Z"
 		end
 			@starting_phrase ||= ""
 	end
@@ -33,8 +31,6 @@ class Encryption
 				letter_roulet = (65 + rand(25)).chr
 				@one_time_phrase += letter_roulet
 			end
-		else
-			puts "Phrase is empty. Please try again!"
 		end
 		@one_time_phrase
 	end
@@ -47,10 +43,6 @@ class Encryption
 			encoding_value = starting_value + one_time_array[index] - 1
 			@encrypted_message += ((encoding_value % 26) + 65).chr
 		end
-		##These output statements will be removed  - For testing only!
-		puts "Starting phrase: #{@starting_phrase}"
-		puts "One time:        #{@one_time_phrase}"
-		puts "encrypted:       #{@encrypted_message}"
 	end
 
 	## Decrypts starting message with one time pad value and encrypted message
@@ -68,11 +60,16 @@ class Encryption
 				@starting_phrase += ((decoding_value+26) + 65 ).chr
 			end
 		end
-		##These output statements will be removed  - For testing only!
-		puts "Starting phrase: #{@starting_phrase}"
-		puts "One time:        #{@one_time_phrase}"
-		puts "Encrypted:       #{@encrypted_message}"
 	end
 
+	def output_values
+		if (@starting_phrase != "")
+			puts "Unencrypted: #{@starting_phrase}"
+			puts "Pad:         #{@one_time_phrase}"
+			puts "Encrypted:   #{@encrypted_message}"
+		else
+			puts "Your message is empty or contains unaccepted characters."
+		end
+	end
 
 end

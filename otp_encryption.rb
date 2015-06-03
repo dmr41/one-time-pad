@@ -23,8 +23,6 @@ class OneTimePad
 		if (phrase_valid)
 				@starting_array = phrase_to_encode.split()
 				@starting_phrase = phrase_to_encode
-		else
-			puts "Your code is not a string between A-Z"
 		end
 		@starting_phrase
 	end
@@ -69,10 +67,6 @@ class OneTimePad
 			@encrypted_array << encrypted_word
 		end
 		@encrypted_message = @encrypted_array.join(" ")
-		##These output statements will be removed  - For testing only!
-		puts "Starting phrase: #{@starting_phrase}"
-		puts "One time:        #{@one_time_phrase}"
-		puts "encrypted:       #{@encrypted_message}"
 	end
 
 
@@ -86,28 +80,34 @@ class OneTimePad
 			single_word_decryption(word, outer_index)
 		end
 		@starting_phrase = @starting_array.join(" ")
-		##These output statements will be removed  - For testing only!
-		puts "Starting phrase: #{@starting_phrase}"
-		puts "One time:        #{@one_time_phrase}"
-		puts "Encrypted:       #{@encrypted_message}"
 	end
 
-
-
-def single_word_decryption(word, outer_index)
-	encrypted_array    = word.split('').map{|v| v.ord - 33}
-	one_time_array     = @one_time_array[outer_index].split('').map{|v| v.ord - 33}
-	decoded_word = ""
-	encrypted_array.each_with_index do |encrypted_value, inner_index|
-		decoding_value = encrypted_value - one_time_array[inner_index] +1
-		if(decoding_value >= 0)
-			decoded_word += (decoding_value + 33 ).chr
+	def output_values
+		if (@starting_phrase != "")
+			puts "Unencrypted: #{@starting_phrase}"
+			puts "Pad:         #{@one_time_phrase}"
+			puts "Encrypted:   #{@encrypted_message}"
 		else
-			decoded_word += ((decoding_value+94) + 33 ).chr
+			puts "Your message is empty or contains unaccepted characters."
 		end
 	end
-	@starting_array << decoded_word
-end
+
+
+
+	def single_word_decryption(word, outer_index)
+		encrypted_array    = word.split('').map{|v| v.ord - 33}
+		one_time_array     = @one_time_array[outer_index].split('').map{|v| v.ord - 33}
+		decoded_word = ""
+		encrypted_array.each_with_index do |encrypted_value, inner_index|
+			decoding_value = encrypted_value - one_time_array[inner_index] +1
+			if(decoding_value >= 0)
+				decoded_word += (decoding_value + 33 ).chr
+			else
+				decoded_word += ((decoding_value+94) + 33 ).chr
+			end
+		end
+		@starting_array << decoded_word
+	end
 
 end
 #"I a1m_ t!ext"
