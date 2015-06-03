@@ -21,7 +21,7 @@ class OneTimePad
 		@starting_phrase = ""
 		phrase_valid = validate_input(phrase_to_encode)
 		if (phrase_valid)
-				@starting_array = phrase_to_encode.upcase.split()
+				@starting_array = phrase_to_encode.split()
 				@starting_phrase = phrase_to_encode
 		else
 			puts "Your code is not a string between A-Z"
@@ -34,7 +34,7 @@ class OneTimePad
 		validate_state = false
 		if (phrase_to_encode.is_a?(String) && phrase_to_encode != "" )
 			valid_content = phrase_to_encode.gsub(/\s+/, "")
-			if(valid_content[/[a-zA-Z]+/] == valid_content)
+			if(valid_content[/[A-Za-z0-9 \/_,\.\^\*\+\?\(\)\[\{\|\-\]\}~$#%!:;<>=`]+/] == valid_content)
 				validate_state = true
 			end
 		end
@@ -46,7 +46,8 @@ class OneTimePad
 		@starting_array.each do |word|
 			random_word = ""
 			for letter in  1..word.length
-				letter_roulet = (65 + rand(25)).chr
+				spin = 33 + rand(93)
+				letter_roulet = spin.chr
 				random_word += letter_roulet
 			end
 			@one_time_array << random_word
@@ -59,11 +60,11 @@ class OneTimePad
 	def encrypt_phrase
 		@starting_array.each_with_index do |word, outer_index|
 			encrypted_word = ""
-			unencoded_array = word.split('').map{|v| v.ord - 65}
-			one_time_array  = @one_time_array[outer_index].split('').map{|v| v.ord - 65}
+			unencoded_array = word.split('').map{|v| v.ord - 33}
+			one_time_array  = @one_time_array[outer_index].split('').map{|v| v.ord - 33}
 			unencoded_array.each_with_index do |starting_value, inner_index|
 				encoding_value = starting_value + one_time_array[inner_index] - 1
-				encrypted_word += ((encoding_value % 26) + 65).chr
+				encrypted_word += ((encoding_value % 94) + 33).chr
 			end
 			@encrypted_array << encrypted_word
 		end
@@ -94,20 +95,26 @@ class OneTimePad
 
 
 def single_word_decryption(word, outer_index)
-	encrypted_array    = word.split('').map{|v| v.ord - 65}
-	one_time_array     = @one_time_array[outer_index].split('').map{|v| v.ord - 65}
+	encrypted_array    = word.split('').map{|v| v.ord - 33}
+	one_time_array     = @one_time_array[outer_index].split('').map{|v| v.ord - 33}
 	decoded_word = ""
 	encrypted_array.each_with_index do |encrypted_value, inner_index|
 		decoding_value = encrypted_value - one_time_array[inner_index] +1
 		if(decoding_value >= 0)
-			decoded_word += (decoding_value + 65 ).chr
+			decoded_word += (decoding_value + 33 ).chr
 		else
-			decoded_word += ((decoding_value+26) + 65 ).chr
+			decoded_word += ((decoding_value+94) + 33 ).chr
 		end
 	end
 	@starting_array << decoded_word
 end
 
 end
-jimmy = OneTimePad.new("I am text")
-jimmy.randomize_phrase
+#"I a1m_ t!ext"
+# jimmy = OneTimePad.new("/_,.^*+?[{|-]}~$#%!:;<>=`")
+# jimmy.randomize_phrase
+# jimmy.encrypt_phrase
+#
+jimmy = OneTimePad.new()
+# jimmy.decrypt_phrase("aLuEY!g}B{1Z6-d)QCkXx5cSU", "n+!Q7)p<{v-eq*b+RFjp3O!n5")
+jimmy.decrypt_phrase("n+!Q7)p<{v-eq*b+RFjp3O!n5","aLuEY!g}B{1Z6-d)QCkXx5cSU")

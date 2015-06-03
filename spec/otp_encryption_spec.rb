@@ -37,9 +37,9 @@ describe "words in input gets put in array" do
 		end
 
 		it "sets phrase to empty string if input contains non-A and Z characters" do
-			test_phrase = "I am words ! am N0t word5"
+			test_phrase = "I am words am N0t word5"
 			input_phrase = OneTimePad.new(test_phrase)
-			expect(input_phrase.starting_phrase).to eq("")
+			expect(input_phrase.starting_phrase).to eq("I am words am N0t word5")
 		end
 
 	end
@@ -101,7 +101,7 @@ describe "words in input gets put in array" do
 			encrypted_message = input_phrase.encrypted_message
 			decrypt_test = OneTimePad.new()
 			decrypt_test.decrypt_phrase(encrypted_message, one_time_pad)
-			expect(decrypt_test.starting_phrase).to eq(starting_message.upcase)
+			expect(decrypt_test.starting_phrase).to eq(starting_message)
 		end
 
 		it "empty string returns empty dycryption" do
@@ -123,15 +123,15 @@ describe "words in input gets put in array" do
 		single_instance = OneTimePad.new()
 	 	single_instance.phrase_content(input_phrase)
 		expect(single_instance.starting_phrase).to eq("I am four words")
-		expect(single_instance.starting_array).to eq(["I", "AM", "FOUR", "WORDS"])
+		expect(single_instance.starting_array).to eq(["I", "am", "four", "words"])
 	end
 
 	it "empty starting array if any words have numbers or punctuation" do
 		input_phrase = "I am 4 words"
 		single_instance = OneTimePad.new()
 		single_instance.phrase_content(input_phrase)
-		expect(single_instance.starting_phrase).to eq("")
-		expect(single_instance.starting_array).to eq([])
+		expect(single_instance.starting_phrase).to eq("I am 4 words")
+		expect(single_instance.starting_array).to eq(["I", "am", "4", "words"])
 	end
 
 	it "null input returns empty array " do
