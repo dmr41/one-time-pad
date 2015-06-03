@@ -116,32 +116,3 @@ describe "decryption" do
 	end
 
 end
-
-
-describe "words in input gets put in array" do
-
-	it "stores all words in starting array" do
-		input_phrase = "I am four words"
-		single_instance = Encryption.new()
-	 	single_instance.phrase_content_content(input_phrase)
-		expect(single_instance.starting_phrase).to eq("I am four words")
-		expect(single_instance.starting_array).to eq(["I", "AM", "FOUR", "WORDS"])
-	end
-
-	it "empty starting array if any words have numbers or punctuation" do
-		input_phrase = "I am 4 words"
-		single_instance = Encryption.new()
-		single_instance.phrase_content_array(input_phrase)
-		expect(single_instance.starting_phrase).to eq("")
-		expect(single_instance.starting_array).to eq([])
-	end
-
-	it "null input returns empty array " do
-		input_phrase = ""
-		single_instance = Encryption.new()
-		single_instance.phrase_content_array(input_phrase)
-		expect(single_instance.starting_phrase).to eq("")
-		expect(single_instance.starting_array).to eq([])
-	end
-
-end
