@@ -1,8 +1,7 @@
 
 class OneTimePad
-	attr_accessor :starting_phrase, :one_time_phrase,
-								:encrypted_message, :starting_array,
-								:one_time_array, :encrypted_array
+	attr_accessor :starting_phrase, :one_time_phrase,:encrypted_message,
+								:starting_array, :one_time_array, :encrypted_array
 
 ## Encryption class initializes phrase instance variable provided by user
 ## Default state is an empty string

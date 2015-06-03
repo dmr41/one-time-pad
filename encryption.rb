@@ -1,7 +1,6 @@
 
 class Encryption
-	attr_accessor :starting_phrase, :one_time_phrase,
-								:encrypted_message
+	attr_accessor :starting_phrase, :one_time_phrase, :encrypted_message
 
 ## Encryption class initializes phrase instance variable provided by user
 ## Default state is an empty string
@@ -14,15 +13,24 @@ class Encryption
 ## phrase_content takes user input and tests if it is a string and
 ## if it only contains a string with only A-Z input
 	def phrase_content(phrase_to_encode)
+		@starting_phrase = ""
+		phrase_valid = validate_input(phrase_to_encode)
+		if (phrase_valid)
+			@starting_phrase = phrase_to_encode.upcase
+		end
+		@starting_phrase
+	end
+
+	def validate_input(phrase_to_encode)
+		validate_state = false
 		if (phrase_to_encode.is_a?(String) && phrase_to_encode != "" )
 			phrase_to_encode.gsub!(/\s+/, "")
 			if(phrase_to_encode[/[a-zA-Z]+/] == phrase_to_encode)
 				@starting_phrase = phrase_to_encode.upcase
 			end
 		end
-			@starting_phrase ||= ""
+		validate_state
 	end
-
 
 ## Generates one-time pad!
 	def randomize_phrase
