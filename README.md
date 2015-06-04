@@ -68,8 +68,8 @@ A-Z encryption and decryption using one-time-pads.
     1. String is converted to array of words split on spaces.
     2. Encrypted/decrypted message maintain original spacing
     3. Encrypted/decrypted ASCII(dec) character range 32-126
-      i.   Upper and lower case letters
-      ii.  Most punctuation.
-      iii. Excluded encryption values in that range are \ " '
+      * Upper and lower case letters accepted
+      * Punctuation accepted.
+      * Excluded encryption characters are \ " '
   * This version is working but needs a lot more testing
     1. Edge cases with special characters need special and numerous tests still.
