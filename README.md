@@ -1,6 +1,7 @@
 
 ### Code Details
-* Encryption is a single class for A-Z encryption and decryption using one-time-pads.
+* encryption.rb is a single class for
+A-Z encryption and decryption using one-time-pads.
 * Written in Ruby-2.2.0
 * Tests were written using rspec 3.2.3
 * To run tests
@@ -8,8 +9,7 @@
   * Install rspec if not installed
   * $ rspec
 
-
-#### Usage
+#### Usage for encryption.rb
 * This program only accepts string values between A-Z.
 * It can handle whitespace and case differences.
 * It does not work with punctuation or stringified numbers, by design.
@@ -35,7 +35,6 @@
     encryption_instance.decrypt_phrase(encrypted_message, one_time_pad)
     decrypted_message = encryption_instance.starting_phrase
     ```
-
 
 #### Encryption Algorithm
 * Takes an input string value
@@ -63,9 +62,14 @@
 
 
 ---------------------------------------------------
-Right now functionality causes text to ignore spacing completely.
-This might be good for better encryption but harder for users to read.
-Considering building a word array based method that returns and array of
-1. unencoded
-2. one-time-pad
-3. encrypted values
+#### otp_encryption.rb
+  * Same fundamental code as encryption.rb but handles arrays
+  * Main differences:
+    1. String is converted to array of words split on spaces.
+    2. Encrypted/decrypted message maintain original spacing
+    3. Encrypted/decrypted ASCII(dec) character range 32-126
+      i.   Upper and lower case letters
+      ii.  Most punctuation.
+      iii. Excluded encryption values in that range are \ " '
+  * This version is working but needs a lot more testing
+    1. Edge cases with special characters need special and numerous tests still.

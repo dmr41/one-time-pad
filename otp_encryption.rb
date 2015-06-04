@@ -14,8 +14,9 @@ class OneTimePad
 		@encrypted_array ||= []
 	end
 
-## phrase_content takes user input and tests if it is a string and
-## if it only contains a string with only A-Z input
+## phrase_content takes user input and tests if it is a string that
+## contains only ASCII decimal values between 33-126
+## \ " and '  are excluded input types for the user.
 	def phrase_content(phrase_to_encode)
 		@starting_phrase = ""
 		phrase_valid = validate_input(phrase_to_encode)
@@ -29,9 +30,10 @@ class OneTimePad
 #Boolean test for phrase validity - returns true or false
 	def validate_input(phrase_to_encode)
 		validate_state = false
+		valid_chars = /[A-Za-z0-9 \/_,\.\^\*\+\?\(\)\[\{\|\-\]\}~$#%!:;<>=`]+/
 		if (phrase_to_encode.is_a?(String) && phrase_to_encode != "" )
 			valid_content = phrase_to_encode.gsub(/\s+/, "")
-			if(valid_content[/[A-Za-z0-9 \/_,\.\^\*\+\?\(\)\[\{\|\-\]\}~$#%!:;<>=`]+/] == valid_content)
+			if(valid_content[valid_chars] == valid_content)
 				validate_state = true
 			end
 		end
@@ -52,7 +54,6 @@ class OneTimePad
 		@one_time_phrase = @one_time_array.join(" ")
 	end
 
-
 ## Encrypts starting message with one time pad value
 	def encrypt_phrase
 		@starting_array.each_with_index do |word, outer_index|
@@ -68,7 +69,6 @@ class OneTimePad
 		@encrypted_message = @encrypted_array.join(" ")
 	end
 
-
 ## Decrypts starting message with one time pad value and encrypted message
 	def decrypt_phrase(encrypted_message, one_time_pad)
 		@encrypted_message = encrypted_message
@@ -81,21 +81,10 @@ class OneTimePad
 		@starting_phrase = @starting_array.join(" ")
 	end
 
-	def output_values
-		if (@starting_phrase != "")
-			puts "Unencrypted: #{@starting_phrase}"
-			puts "Pad:         #{@one_time_phrase}"
-			puts "Encrypted:   #{@encrypted_message}"
-		else
-			puts "Your message is empty or contains unaccepted characters."
-		end
-	end
-
-
-
+##Decrypts word letter by letter
 	def single_word_decryption(word, outer_index)
-		encrypted_array    = word.split('').map{|v| v.ord - 33}
-		one_time_array     = @one_time_array[outer_index].split('').map{|v| v.ord - 33}
+		encrypted_array = word.split('').map{|v| v.ord - 33}
+		one_time_array  = @one_time_array[outer_index].split('').map{|v| v.ord - 33}
 		decoded_word = ""
 		encrypted_array.each_with_index do |encrypted_value, inner_index|
 			decoding_value = encrypted_value - one_time_array[inner_index] +1
@@ -108,12 +97,14 @@ class OneTimePad
 		@starting_array << decoded_word
 	end
 
+	def output_values
+		if (@starting_phrase != "")
+			puts "Unencrypted: #{@starting_phrase}"
+			puts "Pad:         #{@one_time_phrase}"
+			puts "Encrypted:   #{@encrypted_message}"
+		else
+			puts "Your message is empty or contains unaccepted characters."
+		end
+	end
+
 end
-#"I a1m_ t!ext"
-# jimmy = OneTimePad.new("/_,.^*+?[{|-]}~$#%!:;<>=`")
-# jimmy.randomize_phrase
-# jimmy.encrypt_phrase
-#
-jimmy = OneTimePad.new()
-# jimmy.decrypt_phrase("aLuEY!g}B{1Z6-d)QCkXx5cSU", "n+!Q7)p<{v-eq*b+RFjp3O!n5")
-jimmy.decrypt_phrase("n+!Q7)p<{v-eq*b+RFjp3O!n5","aLuEY!g}B{1Z6-d)QCkXx5cSU")
